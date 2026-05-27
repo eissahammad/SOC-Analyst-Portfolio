@@ -58,7 +58,7 @@ index=main sourcetype=fortigate_event
 
 ### Detection Query Result
 
-![VPN Detection Query](screenshots/1.vpn-false-positive-investigation-timeline.png)
+![VPN Detection Query](screenshots/1.vpn-false positive-investigation-timeline.png)
 
 ---
 
