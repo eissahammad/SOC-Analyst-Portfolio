@@ -66,7 +66,7 @@ index=main sourcetype=fortigate_event
 
 ### Detection Query Result
 
-![VPN Detection Query](screenshots/2.vpn-detection-query(1).png)
+![VPN Detection Query](screenshots/2.vpn-detection-query.png)
 
 ---
 
