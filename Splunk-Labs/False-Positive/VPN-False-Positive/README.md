@@ -44,6 +44,14 @@ As a result, the event was initially treated as a high-severity authentication a
 
 ---
 
+## Investigation Timeline
+
+The following investigation timeline showed multiple failed login attempts followed by a successful authentication for the same user account within a short period of time.
+
+![VPN Investigation Timeline](screenshots/1.vpn-false-positive-investigation-timeline.png)
+
+---
+
 ## Detection Logic
 
 The following Splunk query was used to identify multiple failed VPN login attempts followed by a successful authentication for the same user account:
@@ -58,29 +66,11 @@ index=main sourcetype=fortigate_event
 
 ### Detection Query Result
 
-![VPN Detection Query](screenshots/1.vpn-false positive-investigation-timeline.png)
+![VPN Detection Query](screenshots/2.vpn-detection-query(1).png)
 
 ---
 
-## Investigation Process
-
-After the alert was generated, additional investigation was performed to validate whether the activity represented a real compromise or legitimate user behavior.
-
-The investigation focused on:
-- authentication timeline analysis
-- historical user activity
-- source IP consistency
-- validation of successful authentication behavior
-
-### Authentication Timeline Investigation
-
-The following investigation timeline showed multiple failed login attempts followed by a successful authentication for the same user account within a short period of time.
-
-![VPN Investigation Timeline](screenshots/1.vpn-false-positive-investigation-timeline.png)
-
----
-
-### Correlation Rule Configuration
+## Correlation Rule Configuration
 
 A correlation rule was configured in Splunk Enterprise Security to generate a notable event when multiple failed VPN logins were followed by a successful authentication.
 
@@ -88,7 +78,7 @@ A correlation rule was configured in Splunk Enterprise Security to generate a no
 
 ---
 
-### Alert Generation
+## Alert Generation
 
 The correlation rule successfully generated a high-severity notable event for investigation.
 
@@ -99,7 +89,7 @@ The correlation rule successfully generated a high-severity notable event for in
 
 ---
 
-### Source IP and Authentication Validation
+## Source IP and Authentication Validation
 
 Additional investigation confirmed consistent source IP usage and historical successful authentication activity for the same user account.
 
@@ -111,11 +101,14 @@ This behavior supported the conclusion that the activity was consistent with leg
 
 ## MITRE ATT&CK Mapping
 
-| Technique | ID |
-|---|---|
-| Valid Accounts | T1078 |
+| Tactic | Technique | ID |
+|---|---|---|
+| Initial Access | Valid Accounts | T1078 |
 
-The activity was mapped to MITRE ATT&CK technique T1078 because the investigation involved authentication activity using legitimate user credentials.
+- MITRE ATT&CK Technique:
+  https://attack.mitre.org/techniques/T1078/
+
+The activity was mapped to MITRE ATT&CK technique T1078 (Valid Accounts) because the investigation involved authentication activity using legitimate user credentials.
 
 ---
 
@@ -141,5 +134,3 @@ The alert was triggered due to multiple failed VPN login attempts followed by a 
 Although the behavior initially appeared suspicious and generated a high-severity notable event, further investigation confirmed that the activity aligned with normal user behavior. Historical authentication patterns, consistent source IP activity, and the absence of malicious follow-up actions supported the false positive classification.
 
 Therefore, the event was classified as a false positive rather than a confirmed security incident.
-
-
