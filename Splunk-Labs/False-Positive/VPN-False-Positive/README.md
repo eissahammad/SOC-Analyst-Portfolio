@@ -43,4 +43,4 @@ This behavior can potentially indicate:
 As a result, the event was initially treated as a high-severity authentication alert requiring investigation.
 ---
 
-P Analysis](screenshots/vpn-source-ip-analysis.png)
+
