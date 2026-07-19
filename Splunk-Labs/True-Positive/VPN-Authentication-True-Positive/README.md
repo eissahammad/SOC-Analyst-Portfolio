@@ -74,3 +74,4 @@ The screenshot below shows the completed correlation search configuration, inclu
 
 **Screenshot 01 – Detection Rule Configuration**
 
+![Detection Rule Configuration](Screenshots/02-correlation-search-configuration.png)
