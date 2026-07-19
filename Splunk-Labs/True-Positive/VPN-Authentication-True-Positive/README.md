@@ -75,3 +75,94 @@ The screenshot below shows the completed correlation search configuration, inclu
 **Screenshot 01 – Detection Rule Configuration**
 
 ![Detection Rule Configuration](Screenshots/02-correlation-search-configuration.png)
+
+---
+
+## Initial Investigation
+
+Following the generated alert, an initial review of the VPN authentication logs was performed to validate the detection and reconstruct the authentication sequence for the affected user account.
+
+The investigation focused on identifying the number of failed authentication attempts, confirming the successful login, and verifying that all events belonged to the same user account. Reviewing the raw authentication logs allowed the alert to be validated before proceeding with further analysis.
+
+**Screenshot 02 – Initial VPN Authentication Investigation**
+
+![Initial VPN Authentication Investigation](Screenshots/02-initial-vpn-authentication-investigation.png)
+
+---
+
+## Generated Notable Event
+
+After the correlation search conditions were satisfied, Splunk Enterprise Security generated a notable event to notify analysts of suspicious VPN authentication activity.
+
+The notable event confirmed that the correlation search executed successfully and that the observed authentication sequence met the predefined detection threshold. This provided the starting point for the investigation and ensured that the activity required analyst review.
+
+**Screenshot 03 – Generated Notable Event**
+
+![Generated Notable Event](Screenshots/03-generated-notable-event.png)
+
+---
+
+## Focused Investigation
+
+A focused investigation was performed against the identified user account to reconstruct the authentication timeline.
+
+The review confirmed three consecutive failed VPN authentication attempts followed by a successful authentication for the same account. This authentication pattern matched the intended detection logic and demonstrated behavior consistent with password guessing or brute-force activity resulting in successful authentication.
+
+Although the available firewall logs support classifying the alert as a True Positive, they do not independently confirm account compromise or identify the individual responsible for the successful login. In a production SOC, this activity would typically be validated using additional identity, endpoint, and VPN session data before confirming malicious access.
+
+**Screenshot 04 – Focused VPN Authentication Investigation**
+
+![Focused VPN Authentication Investigation](Screenshots/04-focused-vpn-authentication-investigation.png)
+
+---
+
+## Authentication Statistics
+
+Authentication statistics were reviewed to summarize the correlated events for the affected user account.
+
+The results confirmed that the detection threshold was satisfied, with three failed authentication attempts followed by one successful authentication. These statistics support the findings observed during the manual investigation and demonstrate that the correlation search correctly identified the authentication pattern.
+
+**Screenshot 05 – Authentication Statistics**
+
+![Authentication Statistics](Screenshots/05-authentication-statistics.png)
+
+---
+
+## Evidence Summary
+
+| Evidence | Observation |
+|----------|-------------|
+| Failed VPN Authentication Attempts | 3 |
+| Successful VPN Authentication | 1 |
+| User Account | Aug2025 |
+| Correlation Search Triggered | Yes |
+| Notable Event Generated | Yes |
+| Classification | True Positive |
+
+---
+
+## MITRE ATT&CK Mapping
+
+| Technique ID | Technique | Justification |
+|--------------|-----------|---------------|
+| T1078 | Valid Accounts | The authentication sequence concluded with a successful login using valid credentials after multiple failed attempts, making the activity consistent with the use of valid accounts. |
+
+---
+
+## Final Analysis
+
+The investigation validated that the correlation search successfully detected a sequence of three failed VPN authentication attempts followed by a successful authentication for the same user account.
+
+The available firewall authentication logs demonstrate an authentication pattern consistent with password guessing or brute-force activity. Based on the collected evidence, the alert was appropriately classified as a **True Positive** because it matched the intended detection criteria and warranted analyst investigation.
+
+While the authentication logs provide sufficient evidence to validate the detection, they do not independently prove account compromise or attribute the successful login to a specific individual. In a production Security Operations Center, additional evidence such as endpoint telemetry, VPN session information, identity provider logs, geolocation analysis, and user verification would typically be reviewed before confirming unauthorized access.
+
+---
+
+## Conclusion
+
+This investigation demonstrates the development and validation of a Splunk Enterprise Security correlation search designed to detect suspicious VPN authentication activity.
+
+By correlating multiple failed VPN authentication attempts followed by a successful login, the detection effectively identified authentication behavior requiring analyst attention while reducing alerts generated by isolated user mistakes.
+
+The investigation highlights the importance of validating alerts through log analysis, documenting evidence, and reaching conclusions supported by the available data. This evidence-based approach reflects the investigation process expected within a Security Operations Center when handling authentication-related security alerts.
