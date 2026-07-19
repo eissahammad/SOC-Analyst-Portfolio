@@ -86,7 +86,7 @@ The investigation focused on identifying the number of failed authentication att
 
 **Screenshot 02 – Initial VPN Authentication Investigation**
 
-![Initial VPN Authentication Investigation](Screenshots/02-initial-vpn-authentication-investigation.png)
+![Initial VPN Authentication Investigation](Screenshots/01-initial-vpn-authentication-investigation.png)
 
 ---
 
