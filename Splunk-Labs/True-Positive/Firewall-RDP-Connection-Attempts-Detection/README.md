@@ -10,14 +10,14 @@ The investigation was conducted using FortiGate traffic logs and focused on dete
 
 ---
 
-## Environment
+# Environment
 
 | Component | Value |
 |----------|-------|
 | SIEM | Splunk Enterprise Security |
 | Data Source | FortiGate Firewall |
-| Index | main |
-| Sourcetype | fortigate_traffic |
+| Index | `main` |
+| Sourcetype | `fortigate_traffic` |
 
 ---
 
@@ -37,9 +37,7 @@ The firewall logs provided visibility into:
 - Destination Port
 - Firewall Action
 
-### Screenshot
-
-`01-initial-rdp-traffic-investigation.png`
+![Initial RDP Traffic Investigation](Screenshots/01-initial-rdp-traffic-investigation.png)
 
 ---
 
@@ -51,9 +49,7 @@ One source IP was responsible for the majority of observed RDP traffic, making i
 
 This statistical view helped distinguish the dominant activity from normal background traffic and demonstrated a clear concentration of repeated RDP attempts originating from a single source.
 
-### Screenshot
-
-`02-rdp-source-ip-statistics.png`
+![RDP Source IP Statistics](Screenshots/02-rdp-source-ip-statistics.png)
 
 ---
 
@@ -83,9 +79,7 @@ A correlation search was configured in Splunk Enterprise Security to detect repe
 
 When the defined threshold was exceeded, Splunk Enterprise Security automatically generated a notable event for investigation.
 
-### Screenshot
-
-`03-rdp-correlation-rule-configuration.png`
+![Correlation Rule Configuration](Screenshots/03-rdp-correlation-rule-configuration.png)
 
 ---
 
@@ -95,9 +89,7 @@ After generating repeated RDP activity, the correlation search successfully trig
 
 This confirmed that the detection logic functioned as expected and identified the generated RDP activity.
 
-### Screenshot
-
-`04-generated-rdp-notable-event.png`
+![Generated Notable Event](Screenshots/04-generated-rdp-notable-event.png)
 
 ---
 
@@ -113,9 +105,7 @@ The observed activity matched the expected behavior defined by the detection log
 
 Because this investigation relies on FortiGate firewall traffic logs, the available evidence confirms repeated RDP network activity. The firewall logs do not provide visibility into Windows authentication events or indicate whether authentication ultimately succeeded or failed.
 
-### Screenshot
-
-`05-rdp-alert-investigation.png`
+![Alert Investigation](Screenshots/05-rdp-alert-investigation.png)
 
 ---
 
@@ -127,9 +117,7 @@ The results confirmed that the alerted source generated repeated RDP traffic exc
 
 This consistency across the investigation strengthened confidence that the detection accurately identified the intended network behavior.
 
-### Screenshot
-
-`06-rdp-investigation-statistics.png`
+![Investigation Statistics](Screenshots/06-rdp-investigation-statistics.png)
 
 ---
 
@@ -149,7 +137,7 @@ The investigation identified the following indicators:
 
 | Tactic | Technique |
 |---------|-----------|
-| Lateral Movement | T1021.001 – Remote Services: Remote Desktop Protocol |
+| Lateral Movement | [T1021.001 – Remote Services: Remote Desktop Protocol](https://attack.mitre.org/techniques/T1021/001/) |
 
 ---
 
