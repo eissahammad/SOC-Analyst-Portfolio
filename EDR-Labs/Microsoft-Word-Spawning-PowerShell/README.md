@@ -141,9 +141,8 @@ This evidence supports the conclusion that CrowdStrike prevented successful exec
 
 | Tactic | Technique | Justification |
 |--------|-----------|---------------|
-| Initial Access | T1566.001 – Spearphishing Attachment | The attack originated from a malicious Microsoft Word document delivered as a phishing attachment. |
-| Execution | T1059.001 – PowerShell | PowerShell executed an obfuscated script that downloaded and attempted to launch a malicious payload. |
-| Command and Control | T1105 – Ingress Tool Transfer | The PowerShell script downloaded an executable payload from external infrastructure. |
+| Execution | [T1059.001 – PowerShell](https://attack.mitre.org/techniques/T1059/001/) | PowerShell executed an obfuscated script that downloaded and attempted to launch a malicious payload. |
+| Command and Control | [T1105 – Ingress Tool Transfer](https://attack.mitre.org/techniques/T1105/) | The PowerShell script downloaded an executable payload from external infrastructure. |
 
 ---
 
