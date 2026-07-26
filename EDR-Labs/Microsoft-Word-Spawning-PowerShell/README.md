@@ -25,7 +25,7 @@ The investigation confirmed that the alert represented a **True Positive**. Alth
 
 CrowdStrike generated an alert after detecting Microsoft Word spawning PowerShell through an abnormal execution chain. Since Microsoft Office applications rarely initiate PowerShell during normal business activity, this behavior immediately warranted investigation.
 
-![Initial CrowdStrike Detection Dashboard](screenshots/01-initial-crowdstrike-detection-dashboard.png)
+![Initial CrowdStrike Detection Dashboard](Screenshots/01-initial-crowdstrike-detection-dashboard.png)
 
 ---
 
