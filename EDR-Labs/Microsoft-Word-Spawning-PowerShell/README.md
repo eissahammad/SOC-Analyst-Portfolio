@@ -8,10 +8,10 @@ The investigation confirmed that the alert represented a **True Positive**. Alth
 
 ---
 
-## Environment
+# Environment
 
 | Component | Value |
-|----------|-------|
+|-----------|-------|
 | EDR Platform | CrowdStrike Falcon |
 | Operating System | Windows |
 | Investigation Type | Endpoint Detection & Response (EDR) |
@@ -25,21 +25,21 @@ The investigation confirmed that the alert represented a **True Positive**. Alth
 
 CrowdStrike generated an alert after detecting Microsoft Word spawning PowerShell through an abnormal execution chain. Since Microsoft Office applications rarely initiate PowerShell during normal business activity, this behavior immediately warranted investigation.
 
-![Initial Detection](screenshots/01-initial-crowdstrike-detection-dashboard.png)
+![Initial CrowdStrike Detection Dashboard](screenshots/01-initial-crowdstrike-detection-dashboard.png)
 
 ---
 
 ## 2. Process Tree Analysis
 
-The process tree showed that **WINWORD.EXE** initiated an execution chain that leveraged Windows Management Instrumentation (WMI), ultimately launching **PowerShell.exe**.
+The process tree showed that WINWORD.EXE initiated an execution chain that leveraged Windows Management Instrumentation (WMI), ultimately launching PowerShell.exe.
 
 This execution path is highly suspicious because Office applications generally do not spawn PowerShell through WMI during legitimate document usage.
 
-![WINWORD Process Tree](screenshots/02-winword-detection-rpc-to-wmi-execution.png)
+![WINWORD Detection - RPC to WMI Execution](screenshots/02-winword-detection-rpc-to-wmi-execution.png)
 
 Further analysis confirmed that PowerShell was executed by WMI rather than directly by the user, indicating automated execution initiated by the malicious document.
 
-![PowerShell Execution](screenshots/03-powershell-detection-wmi-initiated-execution.png)
+![PowerShell Detection - WMI Initiated Execution](screenshots/03-powershell-detection-wmi-initiated-execution.png)
 
 ---
 
@@ -49,7 +49,7 @@ The PowerShell command contained obfuscated code designed to hide its true funct
 
 After decoding the script, multiple Indicators of Compromise (IOCs) were extracted, including external URLs used to retrieve the malicious payload.
 
-![PowerShell Analysis](screenshots/04-powershell-script-analysis-and-ioc-extraction.png)
+![PowerShell Script Analysis and IOC Extraction](screenshots/04-powershell-script-analysis-and-ioc-extraction.png)
 
 ---
 
@@ -59,9 +59,9 @@ The extracted URLs were investigated using VirusTotal.
 
 The analysis confirmed that the infrastructure had previously been identified as malicious, supporting the conclusion that the PowerShell script attempted to communicate with attacker-controlled resources.
 
-*A representative VirusTotal result is shown below.*
+A representative VirusTotal result is shown below.
 
-![VirusTotal URL Validation](screenshots/05-threat-intelligence-validation-of-extracted-urls.png)
+![Threat Intelligence Validation of Extracted URLs](screenshots/05-threat-intelligence-validation-of-extracted-urls.png)
 
 ---
 
@@ -71,7 +71,7 @@ The extracted indicators were searched throughout endpoint telemetry to determin
 
 The IOC hunt provided additional context for the investigation and helped validate the observed malicious infrastructure.
 
-![IOC Hunt](screenshots/06-ioc-hunt-in-endpoint-telemetry.png)
+![IOC Hunt in Endpoint Telemetry](screenshots/06-ioc-hunt-in-endpoint-telemetry.png)
 
 ---
 
@@ -85,7 +85,7 @@ Endpoint response events confirmed that CrowdStrike blocked and quarantined the 
 
 ![Office2019 Process Tree](screenshots/07-office2019-process-tree.png)
 
-![Office2019 Investigation](screenshots/08-office2019-endpoint-investigation.png)
+![Office2019 Endpoint Investigation](screenshots/08-office2019-endpoint-investigation.png)
 
 ---
 
@@ -95,7 +95,7 @@ The SHA-256 hash of the downloaded executable was extracted and investigated usi
 
 VirusTotal classified the file as malicious, providing independent validation that the downloaded payload represented malware.
 
-![Payload Hash Validation](screenshots/09-payload-hash-extraction-and-virustotal-validation.png)
+![Payload Hash Extraction and VirusTotal Validation](screenshots/09-payload-hash-extraction-and-virustotal-validation.png)
 
 ---
 
@@ -107,7 +107,7 @@ No ProcessRollup2 events associated with the malicious executable were identifie
 
 This evidence supports the conclusion that CrowdStrike prevented successful execution before the malware could fully run.
 
-![Execution Verification](screenshots/10-execution-verification-no-processrollup2-events.png)
+![Execution Verification - No ProcessRollup2 Events](screenshots/10-execution-verification-no-processrollup2-events.png)
 
 ---
 
@@ -141,15 +141,15 @@ This evidence supports the conclusion that CrowdStrike prevented successful exec
 
 | Tactic | Technique | Justification |
 |--------|-----------|---------------|
-| Initial Access | [T1566.001 – Spearphishing Attachment](https://attack.mitre.org/techniques/T1566/001/) | The attack originated from a malicious Microsoft Word document delivered as a phishing attachment. |
-| Execution | [T1059.001 – PowerShell](https://attack.mitre.org/techniques/T1059/001/) | PowerShell executed an obfuscated script that downloaded and attempted to launch a malicious payload. |
-| Command and Control | [T1105 – Ingress Tool Transfer](https://attack.mitre.org/techniques/T1105/) | The PowerShell script downloaded an executable payload from external infrastructure. |
+| Initial Access | T1566.001 – Spearphishing Attachment | The attack originated from a malicious Microsoft Word document delivered as a phishing attachment. |
+| Execution | T1059.001 – PowerShell | PowerShell executed an obfuscated script that downloaded and attempted to launch a malicious payload. |
+| Command and Control | T1105 – Ingress Tool Transfer | The PowerShell script downloaded an executable payload from external infrastructure. |
 
 ---
 
 # Final Analysis
 
-The alert was initially classified as a True Positive by CrowdStrike. An independent investigation was conducted to validate the detection by examining the complete execution chain, PowerShell activity, extracted indicators, threat intelligence, payload behavior, and endpoint telemetry.
+The alert was initially classified as a **True Positive** by CrowdStrike. An independent investigation was conducted to validate the detection by examining the complete execution chain, PowerShell activity, extracted indicators, threat intelligence, payload behavior, and endpoint telemetry.
 
 The investigation confirmed that the document attempted to execute a malicious PowerShell downloader, retrieve an additional payload, and launch the downloaded executable. CrowdStrike successfully prevented execution before the malware could fully run.
 
