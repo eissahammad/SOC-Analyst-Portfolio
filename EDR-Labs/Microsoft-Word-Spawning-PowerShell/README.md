@@ -35,11 +35,11 @@ The process tree showed that WINWORD.EXE initiated an execution chain that lever
 
 This execution path is highly suspicious because Office applications generally do not spawn PowerShell through WMI during legitimate document usage.
 
-![WINWORD Detection - RPC to WMI Execution](screenshots/02-winword-detection-rpc-to-wmi-execution.png)
+![WINWORD Detection - RPC to WMI Execution](Screenshots/02-winword-detection-rpc-to-wmi-execution.png)
 
 Further analysis confirmed that PowerShell was executed by WMI rather than directly by the user, indicating automated execution initiated by the malicious document.
 
-![PowerShell Detection - WMI Initiated Execution](screenshots/03-powershell-detection-wmi-initiated-execution.png)
+![PowerShell Detection - WMI Initiated Execution](Screenshots/03-powershell-detection-wmi-initiated-execution.png)
 
 ---
 
@@ -49,7 +49,7 @@ The PowerShell command contained obfuscated code designed to hide its true funct
 
 After decoding the script, multiple Indicators of Compromise (IOCs) were extracted, including external URLs used to retrieve the malicious payload.
 
-![PowerShell Script Analysis and IOC Extraction](screenshots/04-powershell-script-analysis-and-ioc-extraction.png)
+![PowerShell Script Analysis and IOC Extraction](Screenshots/04-powershell-script-analysis-and-ioc-extraction.png)
 
 ---
 
@@ -61,7 +61,7 @@ The analysis confirmed that the infrastructure had previously been identified as
 
 A representative VirusTotal result is shown below.
 
-![Threat Intelligence Validation of Extracted URLs](screenshots/05-threat-intelligence-validation-of-extracted-urls.png)
+![Threat Intelligence Validation of Extracted URLs](Screenshots/05-threat-intelligence-validation-of-extracted-urls.png)
 
 ---
 
@@ -71,7 +71,7 @@ The extracted indicators were searched throughout endpoint telemetry to determin
 
 The IOC hunt provided additional context for the investigation and helped validate the observed malicious infrastructure.
 
-![IOC Hunt in Endpoint Telemetry](screenshots/06-ioc-hunt-in-endpoint-telemetry.png)
+![IOC Hunt in Endpoint Telemetry](Screenshots/06-ioc-hunt-in-endpoint-telemetry.png)
 
 ---
 
@@ -83,9 +83,9 @@ CrowdStrike endpoint telemetry showed events indicating that the payload had bee
 
 Endpoint response events confirmed that CrowdStrike blocked and quarantined the executable before successful execution.
 
-![Office2019 Process Tree](screenshots/07-office2019-process-tree.png)
+![Office2019 Process Tree](Screenshots/07-office2019-process-tree.png)
 
-![Office2019 Endpoint Investigation](screenshots/08-office2019-endpoint-investigation.png)
+![Office2019 Endpoint Investigation](Screenshots/08-office2019-endpoint-investigation.png)
 
 ---
 
@@ -95,7 +95,7 @@ The SHA-256 hash of the downloaded executable was extracted and investigated usi
 
 VirusTotal classified the file as malicious, providing independent validation that the downloaded payload represented malware.
 
-![Payload Hash Extraction and VirusTotal Validation](screenshots/09-payload-hash-extraction-and-virustotal-validation.png)
+![Payload Hash Extraction and VirusTotal Validation](Screenshots/09-payload-hash-extraction-and-virustotal-validation.png)
 
 ---
 
@@ -107,7 +107,7 @@ No ProcessRollup2 events associated with the malicious executable were identifie
 
 This evidence supports the conclusion that CrowdStrike prevented successful execution before the malware could fully run.
 
-![Execution Verification - No ProcessRollup2 Events](screenshots/10-execution-verification-no-processrollup2-events.png)
+![Execution Verification - No ProcessRollup2 Events](Screenshots/10-execution-verification-no-processrollup2-events.png)
 
 ---
 
