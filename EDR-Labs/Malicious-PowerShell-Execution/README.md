@@ -28,7 +28,7 @@ The investigation began by reviewing the CrowdStrike detection, including the al
 
 **Evidence**
 
-![Detection Details](screenshots/01-crowdstrike-detection-details)
+![Detection Details](screenshots/01-crowdstrike-detection-details.png)
 
 ---
 
@@ -44,7 +44,7 @@ The process graph showed:
 
 **Evidence**
 
-![Process Graph](screenshots/02-process-graph-and-powershell-command-line)
+![Process Graph](screenshots/02-process-graph-and-powershell-command-line.png)
 
 ---
 
@@ -67,7 +67,7 @@ Extracted IOCs:
 
 **Evidence**
 
-![Command Line Analysis](screenshots/03-command-line-analysis-and-ioc-extraction)
+![Command Line Analysis](screenshots/03-command-line-analysis-and-ioc-extraction.png)
 
 ---
 
@@ -84,7 +84,7 @@ The timeline confirmed:
 
 **Evidence**
 
-![Timeline Analysis](screenshots/04-events-timeline-analysis)
+![Timeline Analysis](screenshots/04-events-timeline-analysis.png)
 
 ---
 
@@ -96,15 +96,15 @@ The investigation did not identify matching `NetworkConnectIP4` telemetry for th
 
 **Evidence**
 
-![IOC Hunt](screenshots/05-logscale-ioc-hunt)
+![IOC Hunt](screenshots/05-logscale-ioc-hunt.png)
 
 ---
 
-## MITRE ATT&CK
+## MITRE ATT&CK Mapping
 
-| Tactic | Technique |
-|--------|-----------|
-| Execution | [T1059.001 – Command and Scripting Interpreter: PowerShell](https://attack.mitre.org/techniques/T1059/001/) |
+| Tactic | Technique | Justification |
+|--------|-----------|---------------|
+| Execution | [T1059.001 – Command and Scripting Interpreter: PowerShell](https://attack.mitre.org/techniques/T1059/001/) | The alert was triggered by malicious PowerShell execution using execution policy bypass, hidden execution, and in-memory script execution (IEX). |
 
 ---
 
